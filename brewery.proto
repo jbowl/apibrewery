@@ -1,0 +1,50 @@
+// export GO_PATH_=~/go
+// export PATH=$PATH:/$GO_PATH_/bin
+//protoc --go_out=paths=source_relative:. service.proto
+//protoc -I pkg/proto/credit/ pkg/proto/credit/credit.proto --go_out=plugins=grpc:pkg/proto/credit/
+//protoc -I api/proto/brewery/ api/proto/brewery/brewery.proto --go-grpc_out=api/proto/brewery/
+
+//protoc -I api/proto/brewery/ api/proto/brewery/brewery.proto --go_out=paths=source_relative:.
+
+//protoc -I api/proto/brewery/ api/proto/brewery/brewery.proto --go_out=paths=source_relative:api/proto/brewery/
+
+//https://thewebivore.com/using-replace-in-go-mod-to-point-to-your-local-module/
+//http://www.inanzzz.com/index.php/post/fczr/creating-a-simple-grpc-client-and-server-application-with-golang
+
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative api/proto/brewery/brewery.proto
+// protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative brewery.proto
+// cp -r . /home/j/jsoft/github.com/jbowl/brewery/apibrewery
+// cp -r . /home/j/jsoft/github.com/jbowl/dispatch/apibrewery
+syntax = "proto3";
+
+option go_package = "github.com/jbowl/apibrewery";
+
+package apibrewery;
+
+service BreweryService {
+
+    rpc ListBreweries(Filter) returns (stream Brewery) {}
+
+    rpc SearchBreweries(Filter) returns (stream Brewery) {}
+
+}
+
+message Filter {
+  string by = 1;  
+}
+
+message Brewery{
+  int32 id = 1;
+  string name = 2;
+  string type = 3;
+  string street = 4;
+  string city = 5;
+  string state = 6;
+  string countryprov = 7;
+  string postalcode = 8;
+  string country = 9;
+  string longitude = 10;
+  string latitude = 11;
+  string phone = 12;
+  string website_url = 13;
+}
